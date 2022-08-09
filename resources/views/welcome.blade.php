@@ -37,6 +37,7 @@
                       <div class="form-group mb-2 ml-1">
                         <input type="file" name="qrcode" id="qrcode" accept="image/*">
                       </div>
+                      <textarea name="text" id="text"></textarea>
                     <button type="submit" class="btn btn-primary ml-1 mb-2">Create</button>
                   </form>
                 <br>
@@ -82,7 +83,10 @@
             html5QrCode.scanFile(imageFile, true)
             .then(decodedText => {
                 // success, use decodedText
-                console.log(decodedText);
+                var code = decodedText;
+                const lgt = code.split(" ").length;
+                console.log(code+" "+lgt);
+                $('#text').val(code.split(" "));
             })
             .catch(err => {
                 // failure, handle it.
