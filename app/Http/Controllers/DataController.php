@@ -10,21 +10,16 @@ class DataController extends Controller
 {
     public function index()
     {
-        $data = Data::all();
-        return view('welcome', compact('data'));
+        return view('welcome');
     }
 
     public function store(Request $request)
     {
-        Data::create($request->only(['name', 'email', 'phone']));
-
         return back();
     }
 
     public function generate($id)
     {
-        $data = Data::findOrFail($id);
-        $qrcode = QrCode::size(300)->generate($data);
-        return view('qrcode', compact('qrcode'));
+        return back();
     }
 }

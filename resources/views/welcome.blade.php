@@ -22,7 +22,15 @@
                 </div>
             </div>
             <br>
-            <div class="row mt-5">
+            <label for="text">no space</label>
+            <input type="text" name="text" id="text" style="width: 100%">
+            <br>
+            <label for="text1">with space</label>
+            <input type="text" name="text1" id="text1" style="width: 100%">
+            <br>
+            <label for="text2">slice</label>
+            <input type="text" name="text2" id="text2" style="width: 100%">
+            {{-- <div class="row mt-5">
                 <form class="form-inline" action="{{ route('store') }}" method="POST">
                     @csrf
                     <div class="form-group mb-2">
@@ -63,12 +71,12 @@
                      @endforeach
                     </tbody>
                   </table>
-            </div>
+            </div> --}}
         </div>
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
         <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
-        <script>
+        {{-- <script>
             const html5QrCode = new Html5Qrcode("reader");
             // File based scanning
             const fileinput = document.getElementById('qrcode');
@@ -84,15 +92,41 @@
             .then(decodedText => {
                 // success, use decodedText
                 var code = decodedText;
-                const lgt = code.split(" ").length;
-                console.log(code+" "+lgt);
-                $('#text').val(code.split(" "));
+                const lgt = code.replace(/\s/g, '');
+                console.log(lgt);
+                $('#text').val(lgt);
+                $('#text1').val(code);
             })
             .catch(err => {
                 // failure, handle it.
                 console.log(`Error scanning file. Reason: ${err}`)
             });
             });
+        </script> --}}
+        <script>
+          function onScanSuccess(decodedText, decodedResult) {
+            // handle the scanned code as you like, for example:
+            // console.log(`Code matched = ${decodedText}`, decodedResult);
+            var code = decodedText;
+            const lgt = code.replace(/\s/g, '');
+            var slice = lgt.slice(10, 16);
+            console.log(lgt);
+            $('#text').val(lgt);
+            $('#text1').val(code);
+            $('#text2').val(slice);
+          }
+
+          function onScanFailure(error) {
+            // handle scan failure, usually better to ignore and keep scanning.
+            // for example:
+            console.warn(`Code scan error = ${error}`);
+          }
+
+          let html5QrcodeScanner = new Html5QrcodeScanner(
+            "reader",
+            { fps: 10, qrbox: {width: 250, height: 250} },
+            /* verbose= */ false);
+          html5QrcodeScanner.render(onScanSuccess, onScanFailure);
         </script>
     </body>
 </html>
