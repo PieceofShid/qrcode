@@ -15,5 +15,4 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [DataController::class, 'index']);
-Route::post('/', [DataController::class, 'store'])->name('store');
-Route::get('/{id}/qrcode', [DataController::class, 'generate'])->name('generate');
+Route::get('/generate', [DataController::class, 'generate'])->name('generate');

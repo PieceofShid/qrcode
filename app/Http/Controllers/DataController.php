@@ -13,13 +13,11 @@ class DataController extends Controller
         return view('welcome');
     }
 
-    public function store(Request $request)
+    public function generate(Request $request)
     {
-        return back();
-    }
-
-    public function generate($id)
-    {
-        return back();
+        return view('qrcode')->with([
+            'result' => $request->result,
+            'slice' => $request->slice
+        ]);
     }
 }
