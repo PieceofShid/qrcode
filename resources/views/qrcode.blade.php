@@ -17,7 +17,7 @@
     <body>
         <div class="container">
             <div class="row d-flex justify-content-center align-items-center mt-5">
-                <div class="col text-left">
+                <div class="col text-center">
                     {!!QrCode::backgroundColor(255, 255, 255)->margin(2)->format('svg')->size(200)->generate($slice)!!}
                     <br>
                     <span class="font-weight-bold">{{$slice}}</span>

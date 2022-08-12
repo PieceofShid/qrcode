@@ -23,8 +23,8 @@
             </div>
             <br>
             <form action="{{ route('generate')}}" method="get" id="form">
-              <input type="text" name="result" id="result" hidden>
-              <input type="text" name="slice" id="slice" hidden>
+              <input type="text" name="result" id="result">
+              <input type="text" name="slice" id="slice">
             </form>
         </div>
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
@@ -36,7 +36,12 @@
             // console.log(`Code matched = ${decodedText}`, decodedResult);
             var code = decodedText;
             var result = code.replace(/\s/g, '');
-            var slice = result.slice(10, 16);
+            var slice;
+            if(result.length > 10){
+              slice = result.slice(10, 16);
+            }else{
+              slice = result;
+            }
             $('#result').val(result);
             $('#slice').val(slice);
 
